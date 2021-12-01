@@ -1,6 +1,7 @@
 @extends('layouts.article')
 
-<form action="/lesson3/public/articles/update" method="put">
+<form action="{{ route('articles.update', $article) }}" method="post">
+   @method('put')
    @csrf
    <input type="hidden" name="id" value="{{ $article->id }}">
    <br>

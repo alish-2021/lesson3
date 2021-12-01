@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
-
+use App\Http\Requests\ArticlesEditRequest;
 class ArticleController extends Controller
 {
     /**
@@ -94,9 +94,14 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticlesEditRequest $request, $id)
     {
-        return "cdddcsd";
+        $article = Article::where('id', $id)->update([
+            'title'=>$request['title'],
+            'text'=>$request['text'],
+        ]); 
+
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -107,6 +112,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::where('id', $id)->delete();
+        return redirect()->route('articles.index');
     }
 }
